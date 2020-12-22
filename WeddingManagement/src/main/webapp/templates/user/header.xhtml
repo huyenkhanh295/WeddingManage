@@ -1,0 +1,46 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <!--<h3>#{des}</h3>-->
+    <header  class="top-header">
+        <nav class="navbar header-nav navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <h:graphicImage alt="logo" name="logo.jpg" library="images"/>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
+                    <ul class="navbar-nav">
+                        <li>
+                            <h:form>
+                                <h:commandLink styleClass="nav-link" action="index?faces-redirect=true">
+                                    <i class="far fa-chart-bar"></i>
+                                    Trang chủ
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li><a class="nav-link" href="#about">Giới thiệu</a></li>
+                        <li><a class="nav-link" href="#hall">Sảnh</a></li>
+                        <li><a class="nav-link" href="#menu">Menu</a></li>
+                        <li><a class="nav-link" href="#service">Dịch vụ</a></li>
+                        <li><a class="nav-link" href="#gallery">Hình ảnh</a></li>
+                        <li><a class="nav-link" href="#contact">Liên hệ</a></li>
+                        <li>
+                            <h:form>
+                                <h:commandLink styleClass="nav-link" action="order?faces-redirect=true">
+                                    <i class="far fa-chart-bar"></i>
+                                    Đặt tiệc
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+</ui:composition>

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="templates/admin/base-admin.xhtml">
+            <ui:define name="content-admin">
+                <div class="justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2 text-center">Thêm sảnh mới</h1>
+                </div>
+                <div class="col-md-10 m-auto">
+                    <h:form enctype='multipart/form-data'>
+                        <div class="form-group row">
+                            <h:outputLabel for="inputHallName" class="col-2 col-form-label" value="Tên sảnh"/>
+                            <div class="col-10">
+                                <h:inputText styleClass="form-control" value="#{productBean.hallName}" id="inputHallName"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputLabel class="col-2 col-form-label" for="textDescription" value="Mô tả"/>
+                            <div class="col-10">
+                                <h:inputTextarea styleClass="form-control" value="#{productBean.hallDescription}" id="textDescription" rows="2" cols="50"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <h:outputLabel class="col-2 col-form-label" for="inputPrice" value="Giá" />
+                            <div class="col-10">
+                                <h:inputText  styleClass="form-control" value="#{productBean.hallPrice}" converterMessage="Please enter digits only." />
+                            </div>
+                        </div>
+                        <div class="form-group row pt-2">
+                            <h:outputLabel class="col-form-label pt-0 col-2" for="inputStatus" value="Tình trạng"/>
+                            <div class="col-10 m-auto">
+                                <h:selectOneRadio value="#{productBean.hallStatus}" class="mr-4">
+                                    <f:selectItem itemValue ="true" itemLabel = "Còn sử dụng" />
+                                    <f:selectItem itemValue ="false" itemLabel = "Ngưng sử dụng" />
+                                </h:selectOneRadio>	   
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputLabel class="col-2 col-form-label" for="inputImg" value="Hình ảnh" />
+                            <div class="col-10">
+                                <h:inputFile class="form-control-file border" 
+                                             value="#{productBean.hallImageFile}" id="inputImg"
+                                             validator="UploadValidator"/>
+                                <h:message for="inputImg" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <h:outputLabel class="col-form-label" for="w3review" value="Ghi chú" />
+                                <h:inputTextarea styleClass="form-control" value="#{productBean.hallNote}" id="w3review" rows="4" cols="50"/>
+                            </div>
+                        </div>
+                        <div class="form-group row float-right mb-5">
+                            <h:commandButton styleClass="btn btn-default mr-2" title="Hủy" action="manage-hall?faces-redirect=true"
+                                             value="Hủy" >
+                            </h:commandButton>
+                            <h:commandButton styleClass="btn btn-secondary mr-2" title="Làm mới"
+                                             value="Làm mới" type="reset" >
+                            </h:commandButton>
+                            <h:commandButton styleClass="btn btn-primary" title="Thêm sảnh mới" action="#{productBean.createHall()}" 
+                                             value="Thêm sảnh mới">
+                            </h:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

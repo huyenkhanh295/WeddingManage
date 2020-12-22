@@ -1,0 +1,59 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <h:form>
+                        <h:commandLink styleClass="nav-link active" action="index-admin?faces-redirect=true">
+                            <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                        </h:commandLink>
+                    </h:form>
+                </li>
+                <li class="nav-item">
+                    <h:form>
+                        <h:commandLink styleClass="nav-link" action="manage-hall?faces-redirect=true">
+                            <i class="fas fa-landmark"></i>
+                            Quản lý sảnh
+                        </h:commandLink>
+                    </h:form>
+                </li>
+                <li class="nav-item">
+                    <h:form>
+                        <h:commandLink styleClass="nav-link" action="manage-party?faces-redirect=true">
+                            <i class="fas fa-glass-cheers"></i>
+                        Quản lý tiệc
+                        </h:commandLink>
+                    </h:form>
+                </li>
+                <li class="nav-item">
+                    <h:form>
+                        <h:commandLink styleClass="nav-link" action="order-party?faces-redirect=true">
+                            <i class="fas fa-calendar-check"></i>
+                        Đặt tiệc
+                        </h:commandLink>
+                    </h:form>
+                </li>
+                <li class="nav-item">
+                    <h:form>
+                        <h:commandLink styleClass="nav-link" action="create-bill?faces-redirect=true">
+                            <i class="fas fa-receipt"></i>
+                        Lập hóa đơn
+                        </h:commandLink>
+                    </h:form>
+                </li>
+                <li class="nav-item">
+                    <h:form>
+                        <h:commandLink styleClass="nav-link" action="create-report?faces-redirect=true">
+                            <i class="far fa-chart-bar"></i>
+                        Lập báo cáo
+                        </h:commandLink>
+                    </h:form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</ui:composition>
