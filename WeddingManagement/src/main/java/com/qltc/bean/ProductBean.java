@@ -76,11 +76,11 @@ public class ProductBean implements Serializable {
         String hallId = FacesContext.getCurrentInstance().getExternalContext()
                     .getRequestParameterMap().get("hall_id");
         Product p;
-        if(hallId != null) 
-//            trang thai persistence
-            p = productService.getHallById(Integer.parseInt(hallId));
+        if(this.hallId > 0) 
+//            trang thai persistence: da link toi 1 product duoi db
+            p = productService.getHallById(this.hallId);
         else
-            p = new Product(); //transient
+            p = new Product(); //transient: trang thai moi hoan toan
         p.setName(this.hallName);
         p.setDescription(this.hallDescription);
         p.setUnit("02");

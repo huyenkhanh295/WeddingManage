@@ -19,21 +19,40 @@
                         <div class="form-group row">
                             <h:outputLabel for="inputHallName" class="col-2 col-form-label" value="Tên sảnh"/>
                             <div class="col-10">
-                                <h:inputText styleClass="form-control" value="#{productBean.hallName}" id="inputHallName"/>
+                                <h:inputText styleClass="form-control" id="inputHallName"
+                                             value="#{productBean.hallName}"
+                                             required="true"
+                                             requiredMessage="Vui lòng nhập tên sảnh"/>
                             </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="inputHallName" style="color:red;"/>
                         </div>
                         <div class="form-group row">
                             <h:outputLabel class="col-2 col-form-label" for="textDescription" value="Mô tả"/>
                             <div class="col-10">
-                                <h:inputTextarea styleClass="form-control" value="#{productBean.hallDescription}" id="textDescription" rows="2" cols="50"/>
+                                <h:inputTextarea styleClass="form-control" value="#{productBean.hallDescription}" 
+                                                 id="textDescription" rows="2" cols="50"
+                                                 validatorMessage="Mô tả không quá 65535 kí tự">
+                                    <f:validateLength maximum="65535" />
+                                </h:inputTextarea>
                             </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="textDescription" style="color:red;"/>
                         </div>
 
                         <div class="form-group row">
-                            <h:outputLabel class="col-2 col-form-label" for="inputPrice" value="Giá" />
+                            <h:outputLabel class="col-2 col-form-label" for="inputPrice" value="Giá (VNĐ)" />
                             <div class="col-10">
-                                <h:inputText  styleClass="form-control" value="#{productBean.hallPrice}" converterMessage="Please enter digits only." />
+                                <h:inputText  styleClass="form-control" id="inputPrice"
+                                              value="#{productBean.hallPrice}"
+                                              required="true"
+                                              requiredMessage="Vui lòng nhập giá tiền"
+                                              converterMessage="Vui lòng chỉ nhập số nguyên">
+                                    <f:converter converterId="javax.faces.Integer" />
+                                </h:inputText>
                             </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="inputPrice" style="color:red;"/>
                         </div>
                         <div class="form-group row pt-2">
                             <h:outputLabel class="col-form-label pt-0 col-2" for="inputStatus" value="Tình trạng"/>
@@ -56,11 +75,18 @@
 
                         <div class="form-group row">
                             <div class="col-12">
-                                <h:outputLabel class="col-form-label" for="w3review" value="Ghi chú" />
-                                <h:inputTextarea styleClass="form-control" value="#{productBean.hallNote}" id="w3review" rows="4" cols="50"/>
+                                <h:outputLabel class="col-form-label" for="textNote" value="Ghi chú" />
+                                <h:inputTextarea styleClass="form-control" value="#{productBean.hallNote}" 
+                                                 id="textNote" rows="4" cols="50"
+                                                 validatorMessage="Mô tả không quá 200 kí tự">
+                                    <f:validateLength maximum="200" />
+                                </h:inputTextarea>
                             </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="textNote" style="color:red;"/>
                         </div>
                         <div class="form-group row float-right mb-5">
+                            <h:inputHidden value="#{productBean.hallId}"/>
                             <h:commandButton styleClass="btn btn-default mr-2" title="Hủy" action="manage-hall?faces-redirect=true"
                                              value="Hủy" >
                             </h:commandButton>
@@ -73,7 +99,6 @@
                         </div>
                     </h:form>
                 </div>
-
             </ui:define>
         </ui:composition>
     </h:body>

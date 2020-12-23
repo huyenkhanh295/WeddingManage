@@ -54,10 +54,16 @@
                                     <td class="text-center">#{hall.id}</td>
                                     <td>#{hall.name}</td>
                                     <td>#{hall.description}</td>
-                                    <td class="text-right">#{hall.price}</td>
+                                    <td class="text-right">
+                                        <h:outputText value = "#{hall.price}" >
+                                            <f:convertNumber type="currency" locale="vi_VN" />
+                                        </h:outputText>
+                                    </td>
                                     <td>#{hall.status==true? "Còn sử dụng":"Ngưng sử dụng"}</td>
                                     <td>#{hall.note}</td>
-                                    <td>#{hall.imageUrl}</td>
+                                    <td style="width: 200px">
+                                        <h:graphicImage class="w-100" alt="không có ảnh để hiển thị" name="#{hall.imageUrl.subSequence(0, 6)}/#{hall.imageUrl.substring(6)}" library="images"/>
+                                    </td>
                                     <td class="text-center">
                                         <div class="btn-group-vertical" role="group">
                                             <h:form style="display: contents">
@@ -83,7 +89,7 @@
                 <script>
                     function deleteSuccess(id) {
                         alert("Xoa sanh thanh cong");
-                        $('#hall-'+ id).hide();
+                        $('#hall-' + id).hide();
                     }
 
                     function deleteError() {
