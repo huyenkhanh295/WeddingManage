@@ -54,10 +54,9 @@ public class ProductBean implements Serializable {
                 this.hallPrice = p.getPrice();
                 this.hallNote = p.getNote();
                 this.hallStatus = p.getStatus();
-//       this.hallImageFile = p.getImageUrl().toString().substring(6);
-
-        }
-            
+//                this.hallImageFile =  p.getImageUrl();
+                
+            }
         }
     }
 
