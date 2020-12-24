@@ -46,7 +46,8 @@ public class ProductService {
                 String p = String.format("%%%s%%", kw);
                 Predicate p1 = builder.like(root.get("name").as(String.class), p);
                 Predicate p2 = builder.like(root.get("description").as(String.class), p);
-
+                
+                query = query.where(builder.notEqual(builder.substring(root.<String>get("category"), 3, 4), "01"));
                 query = query.where(builder.and(builder.equal(root.get("category"), "0301"), builder.or(p1, p2)));
             }
 

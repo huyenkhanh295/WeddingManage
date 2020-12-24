@@ -54,77 +54,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row timeline-element separline">
-                <div class="timeline-date-panel col-xs-12 col-md-6  align-left">         
-                    <div class="time-line-date-content">
-                        <p class="mbr-timeline-date mbr-fonts-style display-font">
-                            Sảnh A: mô ta
-                            <a href="#">=> Xem thêm</a>
-                        </p>
-                    </div>
-                </div>
-                <span class="iconBackground"></span>
-                <div class="col-xs-12 col-md-6 align-left">
-                    <h:graphicImage style="width:100%;height:100%;" alt="hall" name="hall/hall-01.jpg" library="images"/>
-                </div>
-            </div>
-            <div class="row timeline-element reverse separline">
-                <div class="timeline-date-panel col-xs-12 col-md-6  align-left">         
-                    <div class="time-line-date-content">
-                        <p class="mbr-timeline-date mbr-fonts-style display-font">
-                            Sảnh B
-                            <a href="#">=> Xem thêm</a>
-                        </p>
-                    </div>
-                </div>
-                <span class="iconBackground"></span>
-                <div class="col-xs-12 col-md-6 align-right">
-                    <h:graphicImage style="width:100%;height:100%;" alt="hall" name="hall/hall-02.jpg" library="images"/>
-                </div>
-            </div>
-            <div class="row timeline-element separline">
-                <div class="timeline-date-panel col-xs-12 col-md-6  align-left">         
-                    <div class="time-line-date-content">
-                        <p class="mbr-timeline-date mbr-fonts-style display-font">
-                            Sảnh C
-                            <a href="#">=> Xem thêm</a>
-                        </p>
-                    </div>
-                </div>
-                <span class="iconBackground"></span>
-                <div class="col-xs-12 col-md-6 align-left">
-                    <h:graphicImage style="width:100%;height:100%;" alt="hall" name="hall/hall-03.jpg" library="images"/>
-                </div>
-            </div>
-            <div class="row timeline-element reverse separline">
-                <div class="timeline-date-panel col-xs-12 col-md-6  align-left">         
-                    <div class="time-line-date-content">
-                        <p class="mbr-timeline-date mbr-fonts-style display-font">
-                            Sảnh D
-                            <a href="#">=> Xem thêm</a>
-                        </p>
-                    </div>
-                </div>
-                <span class="iconBackground"></span>
-                <div class="col-xs-12 col-md-6 align-right">
-                    <h:graphicImage style="width:100%;height:100%;" alt="hall" name="hall/hall-04.jpg" library="images"/>
-                </div>
-            </div>
-            <div class="row timeline-element separline">
-                <div class="timeline-date-panel col-xs-12 col-md-6  align-left">         
-                    <div class="time-line-date-content">
-                        <p class="mbr-timeline-date mbr-fonts-style display-font">
-                            Sảnh E
-                            <a href="#">=> Xem thêm</a>
-                        </p>
-                    </div>
-                </div>
-                <span class="iconBackground"></span>
-                <div class="col-xs-12 col-md-6 align-left">
-                    <h:graphicImage style="width:100%;height:100%;" alt="hall" name="hall/hall-05.jpg" library="images"/>
-                </div>
-            </div>
-
+            <ui:insert name="content-hall">
+                <ui:include src="content-hall.xhtml" />
+            </ui:insert>
         </div>
     </div>
     <!-- End Hall -->
@@ -246,7 +178,7 @@
                             <h:graphicImage styleClass="img-fluid" alt="set-menu" name="menu-set/Menu-wed-Melisa-1024x768-2--1024x679.jpg" library="images"/>
                         </div>
                         <div class="family-info text-center">
-                           <h4>Thực đơn 2</h4>
+                            <h4>Thực đơn 2</h4>
                             <p><a href="#">{ Xem thêm }</a></p>
                         </div>
                     </div>
