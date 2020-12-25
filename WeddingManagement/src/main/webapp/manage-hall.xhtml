@@ -62,12 +62,12 @@
                                             <f:convertNumber type="currency" locale="vi_VN" />
                                         </h:outputText>
                                     </td>
-                                    <td>#{hall.status==true? "Còn sử dụng":"Ngưng sử dụng"}</td>
+                                    <td class="text-center">#{hall.status==true? "Còn sử dụng":"Ngưng sử dụng"}</td>
                                     <td>#{hall.note}</td>
                                     <td style="width: 200px">
                                         <h:graphicImage class="w-100" alt="không có ảnh để hiển thị" name="#{hall.imageUrl.subSequence(0, 6)}/#{hall.imageUrl.substring(6)}" library="images"/>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center align-middle">
                                         <div class="btn-group-vertical" role="group">
                                             <h:form style="display: contents">
                                                 <h:link styleClass="text-white btn btn-primary"  includeViewParams="true" outcome="hall?faces-redirect=true"> 
@@ -91,12 +91,12 @@
 
                 <script>
                     function deleteSuccess(id) {
-                        alert("Xoa sanh thanh cong");
+                        alert("Xóa sảnh thành công");
                         $('#hall-' + id).hide();
                     }
 
                     function deleteError() {
-                        alert("Xoa sanh that bai");
+                        alert("Xóa sảnh thất bại");
                     }
                 </script>
 
