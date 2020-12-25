@@ -3,15 +3,25 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">P &amp; K Center - Admin</a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search"/>
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
-    </li>
-  </ul>
-</header>
+        <h:form>
+            <h:commandLink styleClass="navbar-brand col-md-3 col-lg-2 mr-0 px-3"
+                           action="index-admin?faces-redirect=true"
+                           title="Trang chủ">
+                P &amp; K Center - Admin
+            </h:commandLink>
+        </h:form>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search"/>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <h:form>
+                    <h:commandLink styleClass="nav-link" action="#{userBean.logout()}" title="Đăng xuất">
+                        Đăng xuất
+                    </h:commandLink>
+                </h:form>
+            </li>
+        </ul>
+    </header>
 </ui:composition>

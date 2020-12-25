@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Sign in</title>
         <!-- Bootstrap CSS -->
@@ -22,13 +23,18 @@
                 </h:commandLink>
             </h:form>
             <main class="form-signin text-center">
+                <f:metadata>
+                    <f:viewAction action="#{userBean.checkLogin()}"></f:viewAction>
+                </f:metadata>
                 <h:graphicImage styleClass="mb-4" library="images" name="logo.jpg" />
                 <h1 class="h3 mb-5 fw-normal">Đăng nhập</h1>
+<!--                <h:messages />-->
                 <h:form>
                     <div class="form-group row">
                         <h:outputLabel for="inputUsername" class="col-4 col-form-label" value="Tên đăng nhập"/>
                         <div class="col-8">
                             <h:inputText styleClass="form-control" id="inputUsername"
+                                         value="#{userBean.username}"
                                          required="true"
                                          requiredMessage="Vui lòng nhập tên đăng nhập"/>
                         </div>
@@ -38,15 +44,18 @@
                     <div class="form-group row">
                         <h:outputLabel for="inputPassword" class="col-4 col-form-label" value="Mật khẩu"/>
                         <div class="col-8">
-                            <h:inputText styleClass="form-control" id="inputPassword"
+                            <h:inputSecret styleClass="form-control" id="inputPassword"
+                                         value="#{userBean.password}"
                                          required="true"
                                          requiredMessage="Vui lòng nhập mật khẩu"/>
                         </div>
                         <span class="col-4"></span>
                         <h:message class="col-8" for="inputPassword" style="color:red;"/>
                     </div>
-                    <h:commandButton value="Đăng nhập" styleClass="w-100 btn btn-lg btn-primary">
-                    </h:commandButton>
+                    <h:commandButton styleClass="w-100 btn btn-lg btn-primary" 
+                                     value="Đăng nhập"
+                                     action="#{userBean.login()}" />
+                    
                 </h:form>
                 <h:form>
                     <p class="mt-2 mb-3 text-muted">Chưa có tài khoản?

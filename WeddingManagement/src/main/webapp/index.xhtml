@@ -9,7 +9,6 @@
     </h:head>
     <h:body>
         <ui:composition template="templates/user/base.xhtml">
-
             <ui:define name="content-hall">
                 <c:forEach var="hall" items="#{productBean.allHall}">
                     <div class="row row-hall timeline-element separline">
@@ -26,9 +25,7 @@
                             <h:graphicImage style="width:100%;height:100%;" alt="không có ảnh để hiển thị" name="#{hall.imageUrl.subSequence(0, 6)}/#{hall.imageUrl.substring(6)}" library="images"/>
                         </div>
                     </div>
-
                 </c:forEach>
-
             </ui:define>
         </ui:composition>
     </h:body>

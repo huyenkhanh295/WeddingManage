@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Vo Pham Huyen Khanh
  */
 @Entity
-@Table(name = "user")
+@Table(name = "`user`")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
@@ -82,8 +82,8 @@ public class User implements Serializable {
     @Column(name = "dob")
     @Temporal(TemporalType.DATE)
     private Date dob;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<UserRole> userRoleCollection;
+    @Column(name = "user_role")
+    private String userRole;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
     private Collection<Orders> ordersCollection;
 
@@ -173,15 +173,6 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<UserRole> getUserRoleCollection() {
-        return userRoleCollection;
-    }
-
-    public void setUserRoleCollection(Collection<UserRole> userRoleCollection) {
-        this.userRoleCollection = userRoleCollection;
-    }
-
-    @XmlTransient
     public Collection<Orders> getOrdersCollection() {
         return ordersCollection;
     }
@@ -213,6 +204,20 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.qltc.pojo.User[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the userRole
+     */
+    public String getUserRole() {
+        return userRole;
+    }
+
+    /**
+     * @param userRole the userRole to set
+     */
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
     
 }
