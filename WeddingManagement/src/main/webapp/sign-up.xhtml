@@ -62,7 +62,7 @@
                                          requiredMessage="Vui lòng nhập email"
                                          validatorMessage="Vui lòng nhập email đúng định dạng! Ví dụ: abc@gmail.com">
                                 <f:validateRegex
-        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                             </h:inputText>
                         </div>
                         <span class="col-4"></span>
@@ -74,7 +74,10 @@
                             <h:inputText styleClass="form-control" id="inputUsername"
                                          value="#{userBean.username}"
                                          required="true"
-                                         requiredMessage="Vui lòng nhập tên đăng nhập"/>
+                                         requiredMessage="Vui lòng nhập tên đăng nhập"
+                                         validatorMessage="Tên đăng nhập phải có độ dài từ 6-30 kí tự">
+                                <f:validateLength minimum = "6" maximum = "30" />
+                            </h:inputText>
                         </div>
                         <span class="col-4"></span>
                         <h:message class="col-8" for="inputUsername" style="color:red;"/>
@@ -85,7 +88,11 @@
                             <h:inputSecret styleClass="form-control" id="inputPassword"
                                            value="#{userBean.password}"
                                            required="true"
-                                           requiredMessage="Vui lòng nhập mật khẩu"/>
+                                           requiredMessage="Vui lòng nhập mật khẩu"
+                                           validatorMessage="Mật khẩu phảp bao gồm ít nhất một kí tự gồm: số, chữ thường, hoa, một kí tự đặc biệt và có độ dài từ 8-20 kí tự">
+                                <f:validateRegex 
+                                    pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})" />
+                            </h:inputSecret>
                         </div>
                         <span class="col-4"></span>
                         <h:message class="col-8" for="inputPassword" style="color:red;"/>
