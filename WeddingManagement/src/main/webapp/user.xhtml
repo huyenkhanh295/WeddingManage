@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="templates/admin/base-admin.xhtml">
+            <ui:define name="content-admin">
+                <f:metadata>
+                    <f:viewAction action="#{userBean.checkNotLogin()}"></f:viewAction>
+                </f:metadata>
+                <div class="justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2 text-center">#{userBean.userId > 0? "Cập nhật người dùng": "Thêm người dùng mới"}</h1>
+                </div>
+                <div class="col-md-10 m-auto">
+                    <h:form>
+                        <div class="form-group row">
+                            <h:outputLabel for="inputLastName" class="col-2 col-form-label" value="Họ"/>
+                            <div class="col-10">
+                                <h:inputText styleClass="form-control" id="inputLastName"
+                                             value="#{userBean.lastname}"
+                                             required="true"
+                                             requiredMessage="Vui lòng nhập họ và chữ lót"/>
+                            </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="inputLastName" style="color:red;"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputLabel for="inputFirstName" class="col-2 col-form-label" value="Tên"/>
+                            <div class="col-10">
+                                <h:inputText styleClass="form-control" id="inputFirstName"
+                                             value="#{userBean.firstname}"
+                                             required="true"
+                                             requiredMessage="Vui lòng nhập tên"/>
+                            </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="inputFirstName" style="color:red;"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputLabel for="inputUserName" class="col-2 col-form-label" value="Tên đăng nhập"/>
+                            <div class="col-10">
+                                <h:inputText styleClass="form-control" id="inputUserName"
+                                             value="#{userBean.username}"
+                                             required="true"
+                                             requiredMessage="Vui lòng nhập tên đăng nhập"
+                                             validatorMessage="Tên đăng nhập phải có độ dài từ 6-30 kí tự">
+                                    <f:validateLength minimum = "6" maximum = "30" />
+                                </h:inputText>
+                            </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="inputUserName" style="color:red;"/>
+                        </div>
+                        <c:if test="#{userBean.userId == 0}">
+                            <div class="form-group row">
+                            <h:outputLabel for="inputPassword" class="col-2 col-form-label" value="Mật khẩu"/>
+                            <div class="col-10">
+                                <h:inputSecret styleClass="form-control" id="inputPassword"
+
+                                               value="#{userBean.password}"
+                                               required="true"
+                                               requiredMessage="Vui lòng nhập mật khẩu"
+                                               validatorMessage="Mật khẩu phảp bao gồm ít nhất một kí tự gồm: số, chữ thường, hoa, một kí tự đặc biệt và có độ dài từ 8-20 kí tự">
+                                    <f:validateRegex 
+                                        pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})" />
+                                </h:inputSecret>
+                            </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="inputPassword" style="color:red;"/>
+                        </div>
+                        </c:if>
+                        
+                        <div class="form-group row">
+                            <h:outputLabel for="inputEmail" class="col-2 col-form-label" value="Email"/>
+                            <div class="col-10">
+                                <h:inputText styleClass="form-control" id="inputEmail"
+                                             value="#{userBean.email}"
+                                             required="true"
+                                             requiredMessage="Vui lòng nhập email"
+                                             validatorMessage="Vui lòng nhập email đúng định dạng! Ví dụ: abc@gmail.com">
+                                    <f:validateRegex
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                </h:inputText>
+                            </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="inputEmail" style="color:red;"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputLabel for="inputPhone" class="col-2 col-form-label" value="Số điện thoại"/>
+                            <div class="col-10">
+                                <h:inputText styleClass="form-control" id="inputPhone"
+                                             value="#{userBean.phone}"
+                                             validatorMessage="Vui lòng nhập đúng định dạng">
+                                    <f:validateRegex pattern="^[0]{1}[0-9]{9}" />
+                                </h:inputText>
+                            </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="inputPhone" style="color:red;"/>
+                        </div>
+                        <div class="form-group row">
+                            <h:outputLabel class="col-2 col-form-label" for="inputAddress" value="Địa chỉ"/>
+                            <div class="col-10">
+                                <h:inputTextarea styleClass="form-control" value="#{userBean.address}" 
+                                                 id="inputAddress" rows="2" cols="50"
+                                                 validatorMessage="Địa chỉ không quá 65535 kí tự">
+                                    <f:validateLength maximum="255" />
+                                </h:inputTextarea>
+                            </div>
+                            <span class="col-2"></span>
+                            <h:message class="col-10" for="inputAddress" style="color:red;"/>
+                        </div>
+
+                        <div class="form-group row pt-2">
+                            <h:outputLabel class="col-form-label pt-0 col-2" for="inputUserRole" value="Phân quyền"/>
+                            <div class="col-10 m-auto">
+                                <h:selectOneRadio value="#{userBean.userRole}" class="mr-4" required="true"
+                                                  requiredMessage="Vui lòng chọn phân quyền">
+                                    <f:selectItem itemValue ="ADMIN" itemLabel = "ADMIN" />
+                                    <f:selectItem itemValue ="USER" itemLabel = "USER" />
+                                </h:selectOneRadio>
+                                <span class="col-2"></span>
+                                <h:message class="col-10" for="inputUserRole" style="color:red;"/>
+                            </div>
+                        </div>
+                        <div class="form-group row float-right mb-5">
+                            <h:inputHidden value="#{userBean.userId}"/>
+                            <h:commandButton styleClass="btn btn-secondary mr-2" title="Làm mới"
+                                             value="Làm mới" type="reset" >
+                            </h:commandButton>
+                            <h:commandButton styleClass="btn btn-primary" title="#{userBean.userId > 0? 'Cập nhật người dùng': 'Thêm người dùng mới'}" action="#{userBean.createOrUpdateUser()}" 
+                                             value="#{userBean.userId > 0? 'Cập nhật': 'Thêm người dùng mới'}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
