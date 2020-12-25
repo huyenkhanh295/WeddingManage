@@ -6,6 +6,7 @@
 package com.qltc.services;
 
 import com.qltc.pojo.User;
+import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -22,6 +23,9 @@ public class UserService {
 
     private final static SessionFactory factory = HibernateUtils.getFACTORY();
 
+    /*
+    This function is used by sign up in user page
+    */
     public boolean addUser(User u) {
         try (Session session = factory.openSession()) {
             try {
@@ -29,6 +33,29 @@ public class UserService {
 
                 u.setPassword(DigestUtils.md5Hex(u.getPassword()));
                 session.save(u);
+                
+                session.getTransaction().commit();
+                return true;
+            } catch (Exception ex) {
+                session.getTransaction().rollback();
+            }
+        }
+        return false;
+    }
+    
+    /*
+    This function is used by create and update in admin page
+    If the case is update => don't hash the user password
+    */
+    public boolean createOrUpdateUser(User u) {
+        try (Session session = factory.openSession()) {
+            try {
+                session.getTransaction().begin();
+
+                if(u.getId() == 0){
+                    u.setPassword(DigestUtils.md5Hex(u.getPassword()));
+                }
+                session.saveOrUpdate(u);
                 
                 session.getTransaction().commit();
                 return true;
@@ -53,6 +80,42 @@ public class UserService {
             q.where(builder.and(p1,p2 ));
             
             return session.createQuery(q).getSingleResult();
+        }
+    }
+    
+     public List<User> getAllUser() {
+        try (Session session = factory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<User> query = builder.createQuery(User.class);
+            Root<User> root = query.from(User.class);
+
+            query.select(root);
+
+            return session.createQuery(query).getResultList();
+        }
+    }
+     
+    public boolean deleteUser(User u) {
+        try (Session session = factory.openSession()) {
+            try {
+                session.getTransaction().begin();
+//            Trang thai cua product nay phai la persistence,
+//              No da link toi 1 dong nao do trong csdl, con ko la no se khong the xoa dc
+                session.delete(u);
+                
+                session.getTransaction().commit();
+                
+            } catch (Exception ex) {
+                session.getTransaction().rollback();
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public User getUserById(int userId){
+        try(Session session = factory.openSession()){
+            return session.get(User.class, userId);
         }
     }
 }
