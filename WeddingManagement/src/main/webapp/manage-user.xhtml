@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>bill</title>
     </h:head>
@@ -14,10 +15,13 @@
                     <f:viewAction action="#{userBean.checkNotLogin()}"></f:viewAction>
                 </f:metadata>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Quản lý hóa đơn</h1>
+                    <h1 class="h2">Quản lý người dùng</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
-                        <button type="button" class="btn  btn-outline-primary">Lập hóa đơn</button>
-
+                        <h:form>
+                            <h:commandButton styleClass="btn btn-outline-primary" title="Tạo người dùng mới" action="user?faces-redirect=true"
+                                             value="Tạo người dùng mới" >
+                            </h:commandButton>
+                        </h:form>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -25,76 +29,55 @@
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th class="text-center">Tên sảnh</th>
-                                <th class="text-center">Mô tả</th>
-                                <th class="text-center">Giá</th>
-                                <th class="text-center">Tình trạng</th>
-                                <th class="text-center">Ghi chú</th>
-                                <th class="text-center">Hình ảnh</th>
+                                <th class="text-center">Họ và tên</th>
+                                <th class="text-center">Tên tài khoản</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Số điện thoại</th>
+                                <th class="text-center">Địa chỉ</th>
+                                <th class="text-center">Phân quyền</th>
                                 <th class="text-center">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-center">1,001</td>
-                                <td>Lorem</td>
-                                <td>ipsum</td>
-                                <td>dolor</td>
-                                <td>sit</td>
-                                <td>1,001</td>
-                                <td>Lorem</td>
-                                <td class="text-center">
-                                <div class="btn-group-vertical" role="group">
-                                    <button type="button" class="btn btn-secondary" >
-                                                    <i class="fas fa-info-circle"></i></button>
-                                                <button type="button" class="btn btn-primary" >
-                                                    <i class="fas fa-edit"></i></button>
-                                                <button id="delete" class="btn btn-danger"><i
-                                                        class="fas fa-trash-alt"></i></button>
-                                            </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1,002</td>
-                                <td>amet</td>
-                                <td>consectetur</td>
-                                <td>adipiscing</td>
-                                <td>elit</td>
-                                <td>1,001</td>
-                                <td>Lorem</td>
-                                <td class="text-center">
-                                <div class="btn-group-vertical" role="group">
-                                    <button type="button" class="btn btn-secondary" >
-                                                    <i class="fas fa-info-circle"></i></button>
-                                                <button type="button" class="btn btn-primary" >
-                                                    <i class="fas fa-edit"></i></button>
-                                                <button id="delete" class="btn btn-danger"><i
-                                                        class="fas fa-trash-alt"></i></button>
-                                            </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1,003</td>
-                                <td>Integer</td>
-                                <td>nec</td>
-                                <td>odio</td>
-                                <td>Praesent</td>
-                                <td>1,001</td>
-                                <td>Lorem</td>
-                                <td class="text-center">
-                                <div class="btn-group-vertical" role="group">
-                                    <button type="button" class="btn btn-secondary" >
-                                                    <i class="fas fa-info-circle"></i></button>
-                                                <button type="button" class="btn btn-primary" >
-                                                    <i class="fas fa-edit"></i></button>
-                                                <button id="delete" class="btn btn-danger"><i
-                                                        class="fas fa-trash-alt"></i></button>
-                                            </div>
-                                </td>
-                            </tr>
+                            <c:forEach var="user" items="#{userBean.allUser}">
+                                <tr id="user-#{user.id}">
+                                    <td class="text-center">#{user.id}</td>
+                                    <td>#{user.lastname} #{user.firstname}</td>
+                                    <td>#{user.username}</td>
+                                    <td>#{user.email}</td>
+                                    <td class="text-center">#{user.phone}</td>
+                                    <td>#{user.address}</td>
+                                    <td class="text-center">#{user.userRole}</td>
+                                    <td class="text-center">
+                                        <div class="btn-group-vertical" role="group">
+                                            <h:form style="display: contents">
+                                                <h:link styleClass="text-white btn btn-primary"  includeViewParams="true" outcome="user?faces-redirect=true"> 
+                                                    <i class="fas fa-edit"></i>
+                                                    <f:param name="user_id" value="#{user.id}" />
+                                                </h:link>
+                                                <h:commandLink styleClass="text-white btn btn-danger"> 
+                                                    <i class="fas fa-trash-alt"></i>
+                                                    <f:ajax listener="#{userBean.deleteUser(user)}"
+                                                            onevent="deleteSuccess(#{user.id})" onerror="deleteError"/>
+                                                </h:commandLink>
+                                            </h:form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
+                <script>
+                    function deleteSuccess(id) {
+                        alert("Xóa người dùng thành công");
+                        $('#user-' + id).hide();
+                    }
+
+                    function deleteError() {
+                        alert("Xóa người dùng thất bại");
+                    }
+                </script>
             </ui:define>
         </ui:composition>
     </h:body>
