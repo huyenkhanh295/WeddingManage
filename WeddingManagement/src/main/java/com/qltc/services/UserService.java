@@ -83,13 +83,24 @@ public class UserService {
         }
     }
     
-     public List<User> getAllUser() {
+     public List<User> getAllUser(String keyword) {
         try (Session session = factory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<User> query = builder.createQuery(User.class);
             Root<User> root = query.from(User.class);
 
-            query.select(root);
+            if (!keyword.isEmpty() && keyword != null) {
+                String pattern = String.format("%%%s%%", keyword);
+
+                Predicate p1 = builder.like(root.get("username").as(String.class), pattern);
+                Predicate p2 = builder.like(root.get("firstname").as(String.class), pattern);
+                Predicate p3 = builder.like(root.get("lastname").as(String.class), pattern);
+
+                query.select(root).where(builder.or(p1,p2,p3));
+
+            } else {
+                query.select(root);
+            }
 
             return session.createQuery(query).getResultList();
         }

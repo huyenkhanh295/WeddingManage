@@ -42,11 +42,11 @@
                         <li>
                             <h:form>
                                 <c:if test="#{facesContext.externalContext.sessionMap.get('user') != null}">
-                                    <h:commandLink styleClass="nav-link" action="sign-in?faces-redirect=true" title="Quản lý tài khoản/đơn hàng">
+                                    <h:commandLink styleClass="nav-link" style="font-size: 14px;" action="sign-in?faces-redirect=true" title="Quản lý tài khoản/đơn hàng">
                                         <i class="fas fa-user"></i>
                                         #{facesContext.externalContext.sessionMap.get("user").firstname}
                                     </h:commandLink>
-                                    <h:commandLink styleClass="nav-link" action="#{userBean.logout()}" title="Đăng xuất">
+                                    <h:commandLink styleClass="nav-link" style="font-size: 14px;" action="#{userBean.logout()}" title="Đăng xuất">
                                         Đăng xuất
                                     </h:commandLink>
                                 </c:if>

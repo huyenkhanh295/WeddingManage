@@ -29,6 +29,8 @@ import javax.servlet.http.Part;
 @Named(value = "productBean")
 @SessionScoped
 public class ProductBean implements Serializable {
+    private String keyword;
+    
     private int hallId;
     private String hallName;
     private String hallDescription;
@@ -43,6 +45,7 @@ public class ProductBean implements Serializable {
      * Creates a new instance of ProductBean
      */
     public ProductBean() {
+        this.keyword = "";
         if (!FacesContext.getCurrentInstance().isPostback()) {
             String hall_Id = FacesContext.getCurrentInstance().getExternalContext()
                     .getRequestParameterMap().get("hall_id");
@@ -61,12 +64,12 @@ public class ProductBean implements Serializable {
     }
 
     public List<Product> getAllHall() {
-        List<Product> products = getProductService().getAllHall();
+        List<Product> products = productService.getAllHall(keyword);
         return products;
     }
 
     public List<Product> getHallByKeyword() {
-        List<Product> products = getProductService().getHallByKeyword(null);
+        List<Product> products = productService.getHallByKeyword(null);
         return products;
     }
 
@@ -241,5 +244,19 @@ public class ProductBean implements Serializable {
      */
     public void setHallId(int hallId) {
         this.hallId = hallId;
+    }
+
+    /**
+     * @return the keyword
+     */
+    public String getKeyword() {
+        return keyword;
+    }
+
+    /**
+     * @param keyword the keyword to set
+     */
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

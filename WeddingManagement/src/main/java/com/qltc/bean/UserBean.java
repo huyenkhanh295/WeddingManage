@@ -23,7 +23,9 @@ import javax.persistence.Transient;
 @Named(value = "userBean")
 @SessionScoped
 public class UserBean implements Serializable {
-private int userId;
+    private String keyword;
+    
+    private int userId;
     private String lastname;
     private String firstname;
     private String email;
@@ -40,6 +42,7 @@ private int userId;
      * Creates a new instance of UserBean
      */
     public UserBean() {
+        this.keyword = "";
         if (!FacesContext.getCurrentInstance().isPostback()) {
             String user_Id = FacesContext.getCurrentInstance().getExternalContext()
                     .getRequestParameterMap().get("user_id");
@@ -118,7 +121,7 @@ private int userId;
     }
     
     public List<User> getAllUser() {
-        List<User> users = getUserService().getAllUser();
+        List<User> users = getUserService().getAllUser(getKeyword());
         return users;
     }
     
@@ -310,6 +313,20 @@ private int userId;
      */
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    /**
+     * @return the keyword
+     */
+    public String getKeyword() {
+        return keyword;
+    }
+
+    /**
+     * @param keyword the keyword to set
+     */
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
 }

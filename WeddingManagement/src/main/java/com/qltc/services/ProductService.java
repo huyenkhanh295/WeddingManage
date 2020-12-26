@@ -22,15 +22,25 @@ public class ProductService {
 
     private final static SessionFactory factory = HibernateUtils.getFACTORY();
 
-    public List<Product> getAllHall() {
+    public List<Product> getAllHall(String keyword) {
         try (Session session = factory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Product> query = builder.createQuery(Product.class);
             Root<Product> root = query.from(Product.class);
 
-            query.select(root)
-                    .where(builder.equal(root.get("category"), "0301"));
+            if (!keyword.isEmpty() && keyword != null) {
+                String pattern = String.format("%%%s%%", keyword);
 
+                Predicate p1 = builder.equal(root.get("category"), "0301");
+                Predicate p2 = builder.like(root.get("name").as(String.class), pattern);
+                Predicate p3 = builder.like(root.get("description").as(String.class), pattern);
+
+                query.select(root).where(builder.and(p1,builder.or(p2,p3)));
+
+            } else {
+                query.select(root)
+                        .where(builder.equal(root.get("category"), "0301"));
+            }
             return session.createQuery(query).getResultList();
         }
     }
@@ -46,7 +56,7 @@ public class ProductService {
                 String p = String.format("%%%s%%", kw);
                 Predicate p1 = builder.like(root.get("name").as(String.class), p);
                 Predicate p2 = builder.like(root.get("description").as(String.class), p);
-                
+
                 query = query.where(builder.notEqual(builder.substring(root.<String>get("category"), 3, 4), "01"));
                 query = query.where(builder.and(builder.equal(root.get("category"), "0301"), builder.or(p1, p2)));
             }
@@ -78,9 +88,9 @@ public class ProductService {
 //            Trang thai cua product nay phai la persistence,
 //              No da link toi 1 dong nao do trong csdl, con ko la no se khong the xoa dc
                 session.delete(p);
-                
+
                 session.getTransaction().commit();
-                
+
             } catch (Exception ex) {
                 session.getTransaction().rollback();
                 return false;
@@ -88,9 +98,9 @@ public class ProductService {
         }
         return true;
     }
-    
-    public Product getHallById(int hallId){
-        try(Session session = factory.openSession()){
+
+    public Product getHallById(int hallId) {
+        try (Session session = factory.openSession()) {
             return session.get(Product.class, hallId);
         }
     }
