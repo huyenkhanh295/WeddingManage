@@ -9,6 +9,7 @@
     </h:head>
     <h:body>
         <ui:composition template="templates/user/base.xhtml">
+
             <ui:define name="content-hall">
                 <c:forEach var="hall" items="#{productBean.allHall}">
                     <div class="row row-hall timeline-element separline">
@@ -27,6 +28,38 @@
                     </div>
                 </c:forEach>
             </ui:define>
+            
+            <ui:define name="content-menuset">
+                <c:forEach var="menuset" items="#{menuSetBean.allMenuSet}">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single-team-member">
+                            <div class="family-img">
+                                <h:graphicImage styleClass="img-fluid" alt="không có ảnh để hiển thị" name="#{menuset.description.subSequence(0, 6)}/#{menuset.description.substring(6)}" library="images"/>
+                            </div>
+                            <div class="family-info text-center">
+                                <h4>#{menuset.name}</h4>
+                                <p><a href="#">{ Xem thêm }</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </ui:define>
+
+            <ui:define name="content-service">
+                <c:forEach var="service" items="#{productBean.service}">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="service-inner">
+                            <div class="service-img">
+                                <h:graphicImage styleClass="img-fluid" alt="không có ảnh để hiển thị" name="#{service.imageUrl.subSequence(0, 6)}/#{service.imageUrl.substring(6)}" library="images"/>
+                            </div>
+                            <h2>#{service.name}</h2>
+                            <p>#{service.description}</p>
+                            <a href="#">Xem chi tiết ></a>
+                        </div>
+                    </div>
+                </c:forEach>
+            </ui:define>
+
         </ui:composition>
     </h:body>
 </html>

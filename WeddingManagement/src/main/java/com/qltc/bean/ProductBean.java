@@ -29,8 +29,9 @@ import javax.servlet.http.Part;
 @Named(value = "productBean")
 @SessionScoped
 public class ProductBean implements Serializable {
+
     private String keyword;
-    
+
     private int hallId;
     private String hallName;
     private String hallDescription;
@@ -47,9 +48,10 @@ public class ProductBean implements Serializable {
     public ProductBean() {
         this.keyword = "";
         if (!FacesContext.getCurrentInstance().isPostback()) {
-            String hall_Id = FacesContext.getCurrentInstance().getExternalContext()
-                    .getRequestParameterMap().get("hall_id");
-            if(hall_Id != null && !hall_Id.isEmpty()){
+            String hall_Id = FacesContext.getCurrentInstance()
+                                    .getExternalContext()
+                                    .getRequestParameterMap().get("hall_id");
+            if (hall_Id != null && !hall_Id.isEmpty()) {
                 Product p = productService.getHallById(Integer.parseInt(hall_Id));
                 this.hallId = p.getId();
                 this.hallName = p.getName();
@@ -58,7 +60,7 @@ public class ProductBean implements Serializable {
                 this.hallNote = p.getNote();
                 this.hallStatus = p.getStatus();
 //                this.hallImageFile =  p.getImageUrl();
-                
+
             }
         }
     }
@@ -68,21 +70,22 @@ public class ProductBean implements Serializable {
         return products;
     }
 
-    public List<Product> getHallByKeyword() {
-        List<Product> products = productService.getHallByKeyword(null);
+    public List<Product> getService() {
+        List<Product> products = productService.getService();
         return products;
     }
 
     //create update chung mot ham
     public String createHall() {
         String hallId = FacesContext.getCurrentInstance().getExternalContext()
-                    .getRequestParameterMap().get("hall_id");
+                                    .getRequestParameterMap().get("hall_id");
         Product p;
-        if(this.hallId > 0) 
-//            trang thai persistence: da link toi 1 product duoi db
+        if (this.hallId > 0) //            trang thai persistence: da link toi 1 product duoi db
+        {
             p = productService.getHallById(this.hallId);
-        else
+        } else {
             p = new Product(); //transient: trang thai moi hoan toan
+        }
         p.setName(this.hallName);
         p.setDescription(this.hallDescription);
         p.setUnit("02");
