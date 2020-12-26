@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Vo Pham Huyen Khanh
+ * @author phuoc
  */
 @Entity
 @Table(name = "order_detail")
@@ -45,7 +45,6 @@ public class OrderDetail implements Serializable {
     private Integer id;
     @Column(name = "quantity")
     private Integer quantity;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
     private BigDecimal price;
     @Column(name = "use_time")

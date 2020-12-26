@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Vo Pham Huyen Khanh
+ * @author phuoc
  */
 @Entity
 @Table(name = "menu_set_detail")

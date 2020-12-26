@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Vo Pham Huyen Khanh
+ * @author phuoc
  */
 @Entity
 @Table(name = "`order`")
@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Orders.findById", query = "SELECT o FROM Orders o WHERE o.id = :id"),
     @NamedQuery(name = "Orders.findByCreatedOn", query = "SELECT o FROM Orders o WHERE o.createdOn = :createdOn"),
     @NamedQuery(name = "Orders.findByStartOn", query = "SELECT o FROM Orders o WHERE o.startOn = :startOn"),
+    @NamedQuery(name = "Orders.findByPaymentDate", query = "SELECT o FROM Orders o WHERE o.paymentDate = :paymentDate"),
     @NamedQuery(name = "Orders.findByStatus", query = "SELECT o FROM Orders o WHERE o.status = :status"),
     @NamedQuery(name = "Orders.findByNote", query = "SELECT o FROM Orders o WHERE o.note = :note")})
 public class Orders implements Serializable {
@@ -49,12 +50,17 @@ public class Orders implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 100)
+
     @Column(name = "created_on")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn;
     @Column(name = "start_on")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startOn;
+    @Column(name = "payment_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date paymentDate;
     @Column(name = "status")
     private Boolean status;
     @Size(max = 200)
@@ -63,7 +69,7 @@ public class Orders implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
     private Collection<OrderDetail> orderDetailCollection;
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User customerId;
 
     public Orders() {
@@ -95,6 +101,14 @@ public class Orders implements Serializable {
 
     public void setStartOn(Date startOn) {
         this.startOn = startOn;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public Boolean getStatus() {
@@ -154,5 +168,5 @@ public class Orders implements Serializable {
     public String toString() {
         return "com.qltc.pojo.Orders[ id=" + id + " ]";
     }
-    
+
 }

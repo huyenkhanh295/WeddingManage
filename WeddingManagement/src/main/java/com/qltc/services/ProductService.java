@@ -77,9 +77,9 @@ public class ProductService {
 //            Trang thai cua product nay phai la persistence,
 //              No da link toi 1 dong nao do trong csdl, con ko la no se khong the xoa dc
                 session.delete(p);
-                
+
                 session.getTransaction().commit();
-                
+
             } catch (Exception ex) {
                 session.getTransaction().rollback();
                 return false;
@@ -87,10 +87,50 @@ public class ProductService {
         }
         return true;
     }
-    
-    public Product getHallById(int hallId){
-        try(Session session = factory.openSession()){
+
+    public Product getHallById(int hallId) {
+        try (Session session = factory.openSession()) {
             return session.get(Product.class, hallId);
+        }
+    }
+
+    //phuoc
+    public List<Product> getFood() {
+        try (Session session = factory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Product> query = builder.createQuery(Product.class);
+            Root<Product> root = query.from(Product.class);
+
+            query.select(root)
+                    .where(builder.like(root.get("category").as(String.class), "010%"));
+
+            return session.createQuery(query).getResultList();
+        }
+    }
+
+    public List<Product> getDrink() {
+        try (Session session = factory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Product> query = builder.createQuery(Product.class);
+            Root<Product> root = query.from(Product.class);
+
+            query.select(root)
+                    .where(builder.like(root.get("category").as(String.class), "020%"));
+            return session.createQuery(query).getResultList();
+        }
+    }
+
+    public List<Product> getService() {
+        try (Session session = factory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Product> query = builder.createQuery(Product.class);
+            Root<Product> root = query.from(Product.class);
+
+            Predicate p3 = builder.equal(root.get("type"), "03");
+            Predicate p4 = builder.notEqual(builder.substring(root.<String>get("category"), 3, 4), "01");
+            query.select(root).where(builder.and(p3, p4));
+
+            return session.createQuery(query).getResultList();
         }
     }
 

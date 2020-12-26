@@ -7,6 +7,7 @@ package com.qltc.pojo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -26,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Vo Pham Huyen Khanh
+ * @author phuoc
  */
 @Entity
 @Table(name = "product")
@@ -40,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByCategory", query = "SELECT p FROM Product p WHERE p.category = :category"),
     @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
     @NamedQuery(name = "Product.findByNote", query = "SELECT p FROM Product p WHERE p.note = :note"),
-    @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")})
+    @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status"),
+    @NamedQuery(name = "Product.findByImageUrl", query = "SELECT p FROM Product p WHERE p.imageUrl = :imageUrl")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,7 +67,6 @@ public class Product implements Serializable {
     @Size(max = 45)
     @Column(name = "category")
     private String category;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
     private BigDecimal price;
     @Size(max = 200)
@@ -76,7 +77,6 @@ public class Product implements Serializable {
     @Size(max = 255)
     @Column(name = "image_url")
     private String imageUrl;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "foodId")
     private Collection<MenuSetDetail> menuSetDetailCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
@@ -161,6 +161,14 @@ public class Product implements Serializable {
         this.status = status;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @XmlTransient
     public Collection<MenuSetDetail> getMenuSetDetailCollection() {
         return menuSetDetailCollection;
@@ -180,42 +188,22 @@ public class Product implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public String toString() {
+        return String.valueOf(this.id);
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Product)) {
-            return false;
-        }
-        Product other = (Product) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+        Product pro = (Product) object;
 
+        return this.id == pro.id;
+    }
+     
     @Override
-    public String toString() {
-        return "com.qltc.pojo.Product[ id=" + id + " ]";
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + this.id;
+        return hash;
     }
 
-    /**
-     * @return the imageUrl
-     */
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    /**
-     * @param imageUrl the imageUrl to set
-     */
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-    
 }

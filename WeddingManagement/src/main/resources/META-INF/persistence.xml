@@ -13,6 +13,12 @@
     <class>com.qltc.pojo.Order1</class>
     <class>com.qltc.pojo.Code</class>
     <class>com.qltc.pojo.Orders</class>
+    <class>com.qltc.pojo.MenuSet_1</class>
+    <class>com.qltc.pojo.Product_1</class>
+    <class>com.qltc.pojo.UserRole_1</class>
+    <class>com.qltc.pojo.User_1</class>
+    <class>com.qltc.pojo.MenuSetDetail_1</class>
+    <class>com.qltc.pojo.OrderDetail_1</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/qltieccuoidb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

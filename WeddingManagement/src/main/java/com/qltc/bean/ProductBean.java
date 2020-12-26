@@ -29,6 +29,7 @@ import javax.servlet.http.Part;
 @Named(value = "productBean")
 @SessionScoped
 public class ProductBean implements Serializable {
+    private int table;
     private int hallId;
     private String hallName;
     private String hallDescription;
@@ -61,6 +62,50 @@ public class ProductBean implements Serializable {
         }
     }
 
+    //phuoc
+    
+    public List<Product> getFood() {
+        List<Product> products = getProductService().getFood();
+        return products;
+    }
+    
+    public List<Product> getDrink() {
+        List<Product> products = getProductService().getDrink();
+        return products;
+    }
+    
+     public List<Product> getService() {
+        List<Product> products = getProductService().getService();
+        return products;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public List<Product> getAllHall() {
         List<Product> products = getProductService().getAllHall();
         return products;
@@ -242,5 +287,19 @@ public class ProductBean implements Serializable {
      */
     public void setHallId(int hallId) {
         this.hallId = hallId;
+    }
+
+    /**
+     * @return the table
+     */
+    public int getTable() {
+        return table;
+    }
+
+    /**
+     * @param table the table to set
+     */
+    public void setTable(int table) {
+        this.table = table;
     }
 }
