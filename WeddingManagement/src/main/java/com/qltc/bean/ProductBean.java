@@ -29,6 +29,7 @@ import javax.servlet.http.Part;
 @Named(value = "productBean")
 @SessionScoped
 public class ProductBean implements Serializable {
+
     private int table;
     private String keyword;
 
@@ -49,8 +50,8 @@ public class ProductBean implements Serializable {
         this.keyword = "";
         if (!FacesContext.getCurrentInstance().isPostback()) {
             String hall_Id = FacesContext.getCurrentInstance()
-                                    .getExternalContext()
-                                    .getRequestParameterMap().get("hall_id");
+                    .getExternalContext()
+                    .getRequestParameterMap().get("hall_id");
             if (hall_Id != null && !hall_Id.isEmpty()) {
                 Product p = productService.getHallById(Integer.parseInt(hall_Id));
                 this.hallId = p.getId();
@@ -66,49 +67,21 @@ public class ProductBean implements Serializable {
     }
 
     //phuoc
-    
     public List<Product> getFood() {
         List<Product> products = getProductService().getFood();
         return products;
     }
-    
+
     public List<Product> getDrink() {
         List<Product> products = getProductService().getDrink();
         return products;
     }
-    
-     public List<Product> getService() {
-        List<Product> products = getProductService().getService();
-        return products;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+//    public List<Product> getService() {
+//        List<Product> products = getProductService().getService();
+//        return products;
+//    }
+
     public List<Product> getAllHall() {
         List<Product> products = productService.getAllHall(keyword);
         return products;
@@ -122,7 +95,7 @@ public class ProductBean implements Serializable {
     //create update chung mot ham
     public String createHall() {
         String hallId = FacesContext.getCurrentInstance().getExternalContext()
-                                    .getRequestParameterMap().get("hall_id");
+                .getRequestParameterMap().get("hall_id");
         Product p;
         if (this.hallId > 0) //            trang thai persistence: da link toi 1 product duoi db
         {
@@ -293,7 +266,7 @@ public class ProductBean implements Serializable {
         this.hallId = hallId;
     }
 
-        /**
+    /**
      * @return the table
      */
     public int getTable() {
@@ -306,7 +279,7 @@ public class ProductBean implements Serializable {
     public void setTable(int table) {
         this.table = table;
     }
-    
+
     /**
      * @return the keyword
      */

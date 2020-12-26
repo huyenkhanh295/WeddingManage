@@ -84,8 +84,8 @@ public class ProductService {
             return session.get(Product.class, hallId);
         }
     }
-    
-     public List<Product> getService() {
+
+    public List<Product> getService() {
         try (Session session = factory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Product> query = builder.createQuery(Product.class);
@@ -96,8 +96,8 @@ public class ProductService {
             query.select(root).where(builder.and(p3, p4));
 
             return session.createQuery(query).getResultList();
-            }
-            }
+        }
+    }
 
     //phuoc
     public List<Product> getFood() {
@@ -121,20 +121,6 @@ public class ProductService {
 
             query.select(root)
                     .where(builder.like(root.get("category").as(String.class), "020%"));
-            return session.createQuery(query).getResultList();
-        }
-    }
-
-    public List<Product> getService() {
-        try (Session session = factory.openSession()) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Product> query = builder.createQuery(Product.class);
-            Root<Product> root = query.from(Product.class);
-
-            Predicate p3 = builder.equal(root.get("type"), "03");
-            Predicate p4 = builder.notEqual(builder.substring(root.<String>get("category"), 3, 4), "01");
-            query.select(root).where(builder.and(p3, p4));
-
             return session.createQuery(query).getResultList();
         }
     }
