@@ -822,7 +822,8 @@ td {
 td > label {
     padding-left: 1rem;
 }
-row-hall:nth-child(odd){
+
+.row-hall:nth-child(odd){
     display: flex;
     flex-direction: row-reverse;
 }

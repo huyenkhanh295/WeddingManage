@@ -9,10 +9,12 @@ import com.qltc.pojo.Orders;
 import com.qltc.pojo.MenuSet;
 import com.qltc.pojo.OrderDetail;
 import com.qltc.pojo.Product;
+import com.qltc.pojo.User;
 import com.qltc.services.OrderService;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -24,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -36,7 +39,7 @@ public class OrderBean implements Serializable {
 
     private final static OrderService orderService = new OrderService();
 
-    private String cusId;
+    private int cusId;
     private String cre;
     private Date start;
     private String pay;
@@ -44,7 +47,7 @@ public class OrderBean implements Serializable {
 
     private Set<Product> pro;
     private int table;
-    private BigInteger price;
+    private BigDecimal price;
     
     
     private Integer menu;
@@ -62,6 +65,7 @@ public class OrderBean implements Serializable {
 
     public String addOrder() throws ParseException, Exception {
         Orders o = new Orders();
+        o.setCustomerId((User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user"));
         o.setCreatedOn(new Date());
         o.setStartOn(getStartDay(this.getStart()));
         o.setPaymentDate(null);
@@ -75,7 +79,7 @@ public class OrderBean implements Serializable {
         for (Product pr : pro) {
             od.setOrderId(o);
             od.setProductId(pr);
-            od.setQuantity(table*10);
+            od.setQuantity(getTable()*10);
             od.setPrice(pr.getPrice());
             ods.add(od);
         }
@@ -85,9 +89,9 @@ public class OrderBean implements Serializable {
         
         
         if (orderService.addOrder(o, ods) == true) {
-            return "index";
+            return "index?faces-redirect=true";
         }
-        return "index";
+        return "order";
     }
 
     public String getCreateDay() {
@@ -102,20 +106,6 @@ public class OrderBean implements Serializable {
             return d;
         }
         return null;
-    }
-
-    /**
-     * @return the cusId
-     */
-    public String getCusId() {
-        return cusId;
-    }
-
-    /**
-     * @param cusId the cusId to set
-     */
-    public void setCusId(String cusId) {
-        this.cusId = cusId;
     }
 
     /**
@@ -196,24 +186,10 @@ public class OrderBean implements Serializable {
     }
 
     /**
-     * @param qty the qty to set
+     * @param table
      */
     public void setTable(int table) {
         this.table = table;
-    }
-
-    /**
-     * @return the price
-     */
-    public BigInteger getPrice() {
-        return price;
-    }
-
-    /**
-     * @param price the price to set
-     */
-    public void setPrice(BigInteger price) {
-        this.price = price;
     }
 
     /**
@@ -228,6 +204,13 @@ public class OrderBean implements Serializable {
      */
     public void setMenu(Integer menu) {
         this.menu = menu;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
 }
