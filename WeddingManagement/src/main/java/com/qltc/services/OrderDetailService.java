@@ -5,7 +5,7 @@
  */
 package com.qltc.services;
 
-import com.qltc.pojo.MenuSet;
+import com.qltc.pojo.OrderDetail;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,27 +15,35 @@ import org.hibernate.SessionFactory;
 
 /**
  *
- * @author Vo Pham Huyen Khanh
+ * @author phuoc
  */
-public class MenuSetService {
+public class OrderDetailService {
+
     private final static SessionFactory factory = HibernateUtils.getFACTORY();
-    
-    public List<MenuSet> getAllMenuSet() {
+
+    public List<OrderDetail> getOrdersDetail() {
         try (Session session = factory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<MenuSet> query = builder.createQuery(MenuSet.class);
-            Root<MenuSet> root = query.from(MenuSet.class);
-            
+            CriteriaQuery<OrderDetail> query = builder.createQuery(OrderDetail.class);
+            Root<OrderDetail> root = query.from(OrderDetail.class);
+
             query.select(root);
 
             return session.createQuery(query).getResultList();
         }
     }
-    
-    
-     public MenuSet getMenuSetById(int id) {
+
+    public List<OrderDetail> getODById(int id) {
         try (Session session = factory.openSession()) {
-            return session.get(MenuSet.class, id);
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<OrderDetail> query = builder.createQuery(OrderDetail.class);
+            Root<OrderDetail> root = query.from(OrderDetail.class);
+            query.select(root)
+                    .where(builder.equal(root.get("orderId"), id));
+            return session.createQuery(query).getResultList();
+
         }
     }
+
+
 }

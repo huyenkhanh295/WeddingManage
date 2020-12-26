@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -24,12 +25,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author phuoc
  */
 @Entity
-@Table(name = "menu_set_detail")
+@Table(name = "user_role")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "MenuSetDetail.findAll", query = "SELECT m FROM MenuSetDetail m"),
-    @NamedQuery(name = "MenuSetDetail.findById", query = "SELECT m FROM MenuSetDetail m WHERE m.id = :id")})
-public class MenuSetDetail implements Serializable {
+    @NamedQuery(name = "UserRole.findAll", query = "SELECT u FROM UserRole u"),
+    @NamedQuery(name = "UserRole.findById", query = "SELECT u FROM UserRole u WHERE u.id = :id"),
+    @NamedQuery(name = "UserRole.findByDescription", query = "SELECT u FROM UserRole u WHERE u.description = :description"),
+    @NamedQuery(name = "UserRole.findByStatus", query = "SELECT u FROM UserRole u WHERE u.status = :status")})
+public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,17 +40,22 @@ public class MenuSetDetail implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "menu_set_id", referencedColumnName = "id")
+    @Size(max = 45)
+    @Column(name = "description")
+    private String description;
+    @Column(name = "status")
+    private Boolean status;
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private MenuSet menuSetId;
-    @JoinColumn(name = "food_id", referencedColumnName = "id")
+    private Role roleId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Product foodId;
+    private User userId;
 
-    public MenuSetDetail() {
+    public UserRole() {
     }
 
-    public MenuSetDetail(Integer id) {
+    public UserRole(Integer id) {
         this.id = id;
     }
 
@@ -59,20 +67,36 @@ public class MenuSetDetail implements Serializable {
         this.id = id;
     }
 
-    public MenuSet getMenuSetId() {
-        return menuSetId;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMenuSetId(MenuSet menuSetId) {
-        this.menuSetId = menuSetId;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Product getFoodId() {
-        return foodId;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setFoodId(Product foodId) {
-        this.foodId = foodId;
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Role getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -85,10 +109,10 @@ public class MenuSetDetail implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MenuSetDetail)) {
+        if (!(object instanceof UserRole)) {
             return false;
         }
-        MenuSetDetail other = (MenuSetDetail) object;
+        UserRole other = (UserRole) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -97,7 +121,7 @@ public class MenuSetDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qltc.pojo.MenuSetDetail[ id=" + id + " ]";
+        return "com.qltc.pojo.UserRole[ id=" + id + " ]";
     }
     
 }

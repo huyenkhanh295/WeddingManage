@@ -5,7 +5,8 @@
  */
 package com.qltc.services;
 
-import com.qltc.pojo.MenuSet;
+import com.qltc.pojo.Orders;
+import com.qltc.pojo.OrderDetail;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,27 +16,41 @@ import org.hibernate.SessionFactory;
 
 /**
  *
- * @author Vo Pham Huyen Khanh
+ * @author phuoc
  */
-public class MenuSetService {
+public class OrderService {
+
     private final static SessionFactory factory = HibernateUtils.getFACTORY();
-    
-    public List<MenuSet> getAllMenuSet() {
+
+    public List<Orders> getOrders() {
         try (Session session = factory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<MenuSet> query = builder.createQuery(MenuSet.class);
-            Root<MenuSet> root = query.from(MenuSet.class);
-            
+            CriteriaQuery<Orders> query = builder.createQuery(Orders.class);
+            Root<Orders> root = query.from(Orders.class);
+
             query.select(root);
 
             return session.createQuery(query).getResultList();
         }
     }
-    
-    
-     public MenuSet getMenuSetById(int id) {
+
+    public boolean addOrder(Orders o, List<OrderDetail> ords) {
         try (Session session = factory.openSession()) {
-            return session.get(MenuSet.class, id);
+            try {
+                session.getTransaction().begin();
+                session.save(o);
+                for (OrderDetail ord : ords) {
+                    session.save(ord);
+                }
+                session.getTransaction().commit();
+                return true;
+            } catch (Exception ex) {
+                session.getTransaction().rollback();
+
+                System.err.println(ex);
+                return false;
+            }
         }
     }
+
 }

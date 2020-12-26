@@ -3,7 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<<<<<<< HEAD
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+=======
+>>>>>>> f4c9817cad52b7526a20f2ef629c59b4b7b8c71b
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>

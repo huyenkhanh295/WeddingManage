@@ -99,4 +99,30 @@ public class ProductService {
         }
     }
 
+    //phuoc
+    public List<Product> getFood() {
+        try (Session session = factory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Product> query = builder.createQuery(Product.class);
+            Root<Product> root = query.from(Product.class);
+
+            query.select(root)
+                    .where(builder.like(root.get("category").as(String.class), "010%"));
+
+            return session.createQuery(query).getResultList();
+        }
+    }
+
+    public List<Product> getDrink() {
+        try (Session session = factory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Product> query = builder.createQuery(Product.class);
+            Root<Product> root = query.from(Product.class);
+
+            query.select(root)
+                    .where(builder.like(root.get("category").as(String.class), "020%"));
+            return session.createQuery(query).getResultList();
+        }
+    }
+
 }

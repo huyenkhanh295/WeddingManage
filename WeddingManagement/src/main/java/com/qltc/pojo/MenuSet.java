@@ -6,7 +6,7 @@
 package com.qltc.pojo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Vo Pham Huyen Khanh
+ * @author phuoc
  */
 @Entity
 @Table(name = "menu_set")
@@ -54,9 +54,8 @@ public class MenuSet implements Serializable {
     private String description;
     @Column(name = "status")
     private Boolean status;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "total_amount")
-    private BigDecimal totalAmount;
+    private BigInteger totalAmount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "menuSetId")
     private Collection<MenuSetDetail> menuSetDetailCollection;
 
@@ -99,11 +98,11 @@ public class MenuSet implements Serializable {
         this.status = status;
     }
 
-    public BigDecimal getTotalAmount() {
+    public BigInteger getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(BigInteger totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -116,29 +115,25 @@ public class MenuSet implements Serializable {
         this.menuSetDetailCollection = menuSetDetailCollection;
     }
 
+  
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public String toString() {
+        return String.valueOf(this.id);
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MenuSet)) {
-            return false;
-        }
-        MenuSet other = (MenuSet) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        MenuSet menu = (MenuSet) object;
+
+        return this.id == menu.id;
+    }
+     
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 91 * hash + this.id;
+        return hash;
     }
 
-    @Override
-    public String toString() {
-        return "com.qltc.pojo.MenuSet[ id=" + id + " ]";
-    }
     
 }

@@ -6,32 +6,35 @@
 package com.qltc.pojo;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author phuoc
  */
 @Entity
-@Table(name = "code")
+@Table(name = "role")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Code.findAll", query = "SELECT c FROM Code c"),
-    @NamedQuery(name = "Code.findById", query = "SELECT c FROM Code c WHERE c.id = :id"),
-    @NamedQuery(name = "Code.findByCodeType", query = "SELECT c FROM Code c WHERE c.codeType = :codeType"),
-    @NamedQuery(name = "Code.findByValue", query = "SELECT c FROM Code c WHERE c.value = :value")})
-public class Code implements Serializable {
+    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
+    @NamedQuery(name = "Role.findById", query = "SELECT r FROM Role r WHERE r.id = :id"),
+    @NamedQuery(name = "Role.findByDescription", query = "SELECT r FROM Role r WHERE r.description = :description"),
+    @NamedQuery(name = "Role.findByStatus", query = "SELECT r FROM Role r WHERE r.status = :status")})
+public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,20 +43,17 @@ public class Code implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Size(max = 45)
-    @Column(name = "code_type")
-    private String codeType;
-    @Size(max = 45)
-    @Column(name = "value")
-    private String value;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "display_as")
-    private String displayAs;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "status")
+    private Boolean status;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
+    private Collection<UserRole> userRoleCollection;
 
-    public Code() {
+    public Role() {
     }
 
-    public Code(Integer id) {
+    public Role(Integer id) {
         this.id = id;
     }
 
@@ -65,28 +65,29 @@ public class Code implements Serializable {
         this.id = id;
     }
 
-    public String getCodeType() {
-        return codeType;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCodeType(String codeType) {
-        this.codeType = codeType;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getValue() {
-        return value;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
-    public String getDisplayAs() {
-        return displayAs;
+    @XmlTransient
+    public Collection<UserRole> getUserRoleCollection() {
+        return userRoleCollection;
     }
 
-    public void setDisplayAs(String displayAs) {
-        this.displayAs = displayAs;
+    public void setUserRoleCollection(Collection<UserRole> userRoleCollection) {
+        this.userRoleCollection = userRoleCollection;
     }
 
     @Override
@@ -99,10 +100,10 @@ public class Code implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Code)) {
+        if (!(object instanceof Role)) {
             return false;
         }
-        Code other = (Code) object;
+        Role other = (Role) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -111,7 +112,7 @@ public class Code implements Serializable {
 
     @Override
     public String toString() {
-        return "com.qltc.pojo.Code[ id=" + id + " ]";
+        return "com.qltc.pojo.Role[ id=" + id + " ]";
     }
     
 }

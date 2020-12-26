@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Vo Pham Huyen Khanh
+ * @author phuoc
  */
 @Entity
 @Table(name = "`user`")
@@ -84,7 +84,7 @@ public class User implements Serializable {
     private Date dob;
     @Column(name = "user_role")
     private String userRole;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
+    @OneToMany(mappedBy = "customerId")
     private Collection<Orders> ordersCollection;
 
     public User() {

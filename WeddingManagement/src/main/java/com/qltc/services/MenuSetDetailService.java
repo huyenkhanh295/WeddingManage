@@ -5,7 +5,7 @@
  */
 package com.qltc.services;
 
-import com.qltc.pojo.MenuSet;
+import com.qltc.pojo.MenuSetDetail;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,27 +15,19 @@ import org.hibernate.SessionFactory;
 
 /**
  *
- * @author Vo Pham Huyen Khanh
+ * @author phuoc
  */
-public class MenuSetService {
+public class MenuSetDetailService {
+
     private final static SessionFactory factory = HibernateUtils.getFACTORY();
-    
-    public List<MenuSet> getAllMenuSet() {
+    public List<MenuSetDetail> getMenuSet(int id) {
         try (Session session = factory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<MenuSet> query = builder.createQuery(MenuSet.class);
-            Root<MenuSet> root = query.from(MenuSet.class);
-            
+            CriteriaQuery<MenuSetDetail> query = builder.createQuery(MenuSetDetail.class);
+            Root<MenuSetDetail> root = query.from(MenuSetDetail.class);
             query.select(root);
-
+            query = query.where(builder.equal(root.get("menuSetId"), id));
             return session.createQuery(query).getResultList();
-        }
-    }
-    
-    
-     public MenuSet getMenuSetById(int id) {
-        try (Session session = factory.openSession()) {
-            return session.get(MenuSet.class, id);
         }
     }
 }
