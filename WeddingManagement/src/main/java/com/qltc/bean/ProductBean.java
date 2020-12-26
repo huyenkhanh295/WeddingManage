@@ -30,6 +30,8 @@ import javax.servlet.http.Part;
 @SessionScoped
 public class ProductBean implements Serializable {
     private int table;
+    private String keyword;
+
     private int hallId;
     private String hallName;
     private String hallDescription;
@@ -44,10 +46,12 @@ public class ProductBean implements Serializable {
      * Creates a new instance of ProductBean
      */
     public ProductBean() {
+        this.keyword = "";
         if (!FacesContext.getCurrentInstance().isPostback()) {
-            String hall_Id = FacesContext.getCurrentInstance().getExternalContext()
-                    .getRequestParameterMap().get("hall_id");
-            if(hall_Id != null && !hall_Id.isEmpty()){
+            String hall_Id = FacesContext.getCurrentInstance()
+                                    .getExternalContext()
+                                    .getRequestParameterMap().get("hall_id");
+            if (hall_Id != null && !hall_Id.isEmpty()) {
                 Product p = productService.getHallById(Integer.parseInt(hall_Id));
                 this.hallId = p.getId();
                 this.hallName = p.getName();
@@ -55,10 +59,9 @@ public class ProductBean implements Serializable {
                 this.hallPrice = p.getPrice();
                 this.hallNote = p.getNote();
                 this.hallStatus = p.getStatus();
-//       this.hallImageFile = p.getImageUrl().toString().substring(6);
+//                this.hallImageFile =  p.getImageUrl();
 
-        }
-            
+            }
         }
     }
 
@@ -107,25 +110,26 @@ public class ProductBean implements Serializable {
     
     
     public List<Product> getAllHall() {
-        List<Product> products = getProductService().getAllHall();
+        List<Product> products = productService.getAllHall(keyword);
         return products;
     }
 
-    public List<Product> getHallByKeyword() {
-        List<Product> products = getProductService().getHallByKeyword(null);
+    public List<Product> getService() {
+        List<Product> products = productService.getService();
         return products;
     }
 
     //create update chung mot ham
     public String createHall() {
         String hallId = FacesContext.getCurrentInstance().getExternalContext()
-                    .getRequestParameterMap().get("hall_id");
+                                    .getRequestParameterMap().get("hall_id");
         Product p;
-        if(hallId != null) 
-//            trang thai persistence
-            p = productService.getHallById(Integer.parseInt(hallId));
-        else
-            p = new Product(); //transient
+        if (this.hallId > 0) //            trang thai persistence: da link toi 1 product duoi db
+        {
+            p = productService.getHallById(this.hallId);
+        } else {
+            p = new Product(); //transient: trang thai moi hoan toan
+        }
         p.setName(this.hallName);
         p.setDescription(this.hallDescription);
         p.setUnit("02");
@@ -289,7 +293,7 @@ public class ProductBean implements Serializable {
         this.hallId = hallId;
     }
 
-    /**
+        /**
      * @return the table
      */
     public int getTable() {
@@ -301,5 +305,19 @@ public class ProductBean implements Serializable {
      */
     public void setTable(int table) {
         this.table = table;
+    }
+    
+    /**
+     * @return the keyword
+     */
+    public String getKeyword() {
+        return keyword;
+    }
+
+    /**
+     * @param keyword the keyword to set
+     */
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

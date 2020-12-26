@@ -1,14 +1,17 @@
 <ui:composition 
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <!--<h3>#{des}</h3>-->
     <header  class="top-header">
         <nav class="navbar header-nav navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <h:graphicImage alt="logo" name="logo.jpg" library="images"/>
-                </a>
+                <h:form>
+                    <h:commandLink styleClass="navbar-brand" action="index?faces-redirect=true" title="Trang chủ">
+                        <h:graphicImage alt="logo" name="logo.jpg" library="images"/>
+                    </h:commandLink>
+                </h:form>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
@@ -18,24 +21,41 @@
                     <ul class="navbar-nav">
                         <li>
                             <h:form>
-                                <h:commandLink styleClass="nav-link" action="index?faces-redirect=true">
-                                    <i class="far fa-chart-bar"></i>
+                                <h:commandLink styleClass="nav-link" action="index?faces-redirect=true" title="Trang chủ">
                                     Trang chủ
                                 </h:commandLink>
                             </h:form>
                         </li>
-                        <li><a class="nav-link" href="#about">Giới thiệu</a></li>
-                        <li><a class="nav-link" href="#hall">Sảnh</a></li>
-                        <li><a class="nav-link" href="#menu">Menu</a></li>
-                        <li><a class="nav-link" href="#service">Dịch vụ</a></li>
-                        <li><a class="nav-link" href="#gallery">Hình ảnh</a></li>
-                        <li><a class="nav-link" href="#contact">Liên hệ</a></li>
+                        <li><a class="nav-link" href="#about" title="Giới thiệu">Giới thiệu</a></li>
+                        <li><a class="nav-link" href="#hall" title="Sảnh tiệc">Sảnh tiệc</a></li>
+                        <li><a class="nav-link" href="#menu" title="Thực đơn">Thực đơn</a></li>
+                        <li><a class="nav-link" href="#service" title="Dịch vụ">Dịch vụ</a></li>
+                        <li><a class="nav-link" href="#gallery" title="Hình ảnh">Hình ảnh</a></li>
+                        <li><a class="nav-link" href="#contact" title="Liên hệ">Liên hệ</a></li>
                         <li>
                             <h:form>
-                                <h:commandLink styleClass="nav-link" action="order?faces-redirect=true">
-                                    <i class="far fa-chart-bar"></i>
+                                <h:commandLink styleClass="nav-link" action="order?faces-redirect=true" title="Đặt tiệc">
                                     Đặt tiệc
                                 </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li>
+                            <h:form>
+                                <c:if test="#{facesContext.externalContext.sessionMap.get('user') != null}">
+                                    <h:commandLink styleClass="nav-link" style="font-size: 14px;" action="sign-in?faces-redirect=true" title="Quản lý tài khoản/đơn hàng">
+                                        <i class="fas fa-user"></i>
+                                        #{facesContext.externalContext.sessionMap.get("user").firstname}
+                                    </h:commandLink>
+                                    <h:commandLink styleClass="nav-link" style="font-size: 14px;" action="#{userBean.logout()}" title="Đăng xuất">
+                                        Đăng xuất
+                                    </h:commandLink>
+                                </c:if>
+                                <c:if test="#{facesContext.externalContext.sessionMap.get('user') == null}">
+                                    <h:commandLink styleClass="nav-link" action="sign-in?faces-redirect=true" title="Đăng nhập">
+                                        Đăng nhập
+                                    </h:commandLink>
+                                </c:if>
+
                             </h:form>
                         </li>
                     </ul>

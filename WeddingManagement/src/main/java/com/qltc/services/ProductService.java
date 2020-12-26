@@ -22,34 +22,25 @@ public class ProductService {
 
     private final static SessionFactory factory = HibernateUtils.getFACTORY();
 
-    public List<Product> getAllHall() {
+    public List<Product> getAllHall(String keyword) {
         try (Session session = factory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Product> query = builder.createQuery(Product.class);
             Root<Product> root = query.from(Product.class);
 
-            query.select(root)
-                    .where(builder.equal(root.get("category"), "0301"));
+            if (!keyword.isEmpty() && keyword != null) {
+                String pattern = String.format("%%%s%%", keyword);
 
-            return session.createQuery(query).getResultList();
-        }
-    }
+                Predicate p1 = builder.equal(root.get("category"), "0301");
+                Predicate p2 = builder.like(root.get("name").as(String.class), pattern);
+                Predicate p3 = builder.like(root.get("description").as(String.class), pattern);
 
-    public List<Product> getHallByKeyword(String kw) {
-        try (Session session = factory.openSession()) {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Product> query = builder.createQuery(Product.class);
-            Root<Product> root = query.from(Product.class);
-            query.select(root);
+                query.select(root).where(builder.and(p1, builder.or(p2, p3)));
 
-            if (kw != null && !kw.isEmpty()) {
-                String p = String.format("%%%s%%", kw);
-                Predicate p1 = builder.like(root.get("name").as(String.class), p);
-                Predicate p2 = builder.like(root.get("description").as(String.class), p);
-
-                query = query.where(builder.and(builder.equal(root.get("category"), "0301"), builder.or(p1, p2)));
+            } else {
+                query.select(root)
+                        .where(builder.equal(root.get("category"), "0301"));
             }
-
             return session.createQuery(query).getResultList();
         }
     }
@@ -93,6 +84,20 @@ public class ProductService {
             return session.get(Product.class, hallId);
         }
     }
+    
+     public List<Product> getService() {
+        try (Session session = factory.openSession()) {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Product> query = builder.createQuery(Product.class);
+            Root<Product> root = query.from(Product.class);
+
+            Predicate p3 = builder.equal(root.get("type"), "03");
+            Predicate p4 = builder.notEqual(builder.substring(root.<String>get("category"), 3, 4), "01");
+            query.select(root).where(builder.and(p3, p4));
+
+            return session.createQuery(query).getResultList();
+            }
+            }
 
     //phuoc
     public List<Product> getFood() {

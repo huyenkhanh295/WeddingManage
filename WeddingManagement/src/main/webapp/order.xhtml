@@ -14,7 +14,7 @@
                 <div class="mt-3 ml-3">
                     <h:form>
                         <h:commandLink styleClass="nav-link" action="index?faces-redirect=true">
-                            <i class="far fa-chart-bar"></i>
+                            <i class="fas fa-home"></i>
                             Về trang chủ
                         </h:commandLink>
                     </h:form>
@@ -24,6 +24,9 @@
 
             </ui:define>
             <ui:define name="content">
+                <f:metadata>
+                    <f:viewAction action="#{userBean.checkNotLogin()}"></f:viewAction>
+                </f:metadata>
                 <div class="col-md-8 m-auto">
                     <h1 class="text-center">ĐẶT TIỆC</h1>
                     <h:form class="mt-2 mb-5">

@@ -2,13 +2,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         <ui:composition template="templates/user/base.xhtml">
+
+            <ui:define name="content-hall">
+                <c:forEach var="hall" items="#{productBean.allHall}">
+                    <div class="row row-hall timeline-element separline">
+                        <div class="timeline-date-panel col-xs-12 col-md-6  align-left">         
+                            <div class="time-line-date-content">
+                                <p class="mbr-timeline-date mbr-fonts-style display-font">
+                                    #{hall.name}: #{hall.description}
+                                    <a href="#">=> Xem thêm</a>
+                                </p>
+                            </div>
+                        </div>
+                        <span class="iconBackground"></span>
+                        <div class="col-xs-12 col-md-6 align-left">
+                            <h:graphicImage style="width:100%;height:100%;" alt="không có ảnh để hiển thị" name="#{hall.imageUrl.subSequence(0, 6)}/#{hall.imageUrl.substring(6)}" library="images"/>
+                        </div>
+                    </div>
+                </c:forEach>
+            </ui:define>
             
+            <ui:define name="content-menuset">
+                <c:forEach var="menuset" items="#{menuSetBean.allMenuSet}">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="single-team-member">
+                            <div class="family-img">
+                                <h:graphicImage styleClass="img-fluid" alt="không có ảnh để hiển thị" name="#{menuset.description.subSequence(0, 6)}/#{menuset.description.substring(6)}" library="images"/>
+                            </div>
+                            <div class="family-info text-center">
+                                <h4>#{menuset.name}</h4>
+                                <p><a href="#">{ Xem thêm }</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </ui:define>
+
+            <ui:define name="content-service">
+                <c:forEach var="service" items="#{productBean.service}">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="service-inner">
+                            <div class="service-img">
+                                <h:graphicImage styleClass="img-fluid" alt="không có ảnh để hiển thị" name="#{service.imageUrl.subSequence(0, 6)}/#{service.imageUrl.substring(6)}" library="images"/>
+                            </div>
+                            <h2>#{service.name}</h2>
+                            <p>#{service.description}</p>
+                            <a href="#">Xem chi tiết ></a>
+                        </div>
+                    </div>
+                </c:forEach>
+            </ui:define>
+
         </ui:composition>
     </h:body>
 </html>

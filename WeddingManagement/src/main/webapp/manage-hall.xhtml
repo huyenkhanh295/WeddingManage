@@ -11,21 +11,22 @@
     <h:body>
         <ui:composition template="templates/admin/base-admin.xhtml">
             <ui:define name="content-admin">
+                <f:metadata>
+                    <f:viewAction action="#{userBean.checkNotLogin()}"></f:viewAction>
+                </f:metadata>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Quản lý sảnh tiệc</h1>
-                    <div class="col-6 btn-toolbar mb-2 mb-md-0 input-group">
-                        <input class="form-control" type="search"
-                               placeholder="Tìm kiếm theo mã buổi tiệc"/>
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" title="Tìm kiếm"
-                                    >Tìm kiếm</button>
-                            <!--                            <h:form>
-                                                        <h:commandButton styleClass="btn btn-outline-success my-2 my-sm-0" title="Tìm kiếm"
-                                                                         value="Tìm kiếm" >
-                                                        </h:commandButton>
-                                                    </h:form>-->
-                        </div>
+                    <h1 class="w-100">Quản lý sảnh tiệc</h1>
+                    <div class=" btn-toolbar mb-2 mb-md-0 input-group">
+                        <h:form class="row w-100">
+                            <h:inputText styleClass="col form-control" value="#{productBean.keyword}" />
+                            <div class="input-group-append">
+                                <h:commandButton styleClass="col btn btn-outline-success my-2 my-sm-0" title="Tìm kiếm"
+                                                 value="Tìm kiếm" >
+                                </h:commandButton>
+                            </div>
+                        </h:form>
                     </div>
+
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <h:form>
                             <h:commandButton styleClass="btn btn-outline-primary" title="Thêm sảnh mới" action="hall?faces-redirect=true"
@@ -38,14 +39,14 @@
                     <table class="table table-sm table-bordered">
                         <thead>
                             <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Tên sảnh</th>
-                                <th class="text-center">Mô tả</th>
-                                <th class="text-center">Giá</th>
-                                <th class="text-center">Tình trạng</th>
-                                <th class="text-center">Ghi chú</th>
-                                <th class="text-center">Hình ảnh</th>
-                                <th class="text-center">Thao tác</th>
+                                <th class="text-center align-middle">#</th>
+                                <th class="text-center align-middle">Tên sảnh</th>
+                                <th class="text-center align-middle">Mô tả</th>
+                                <th class="text-center align-middle">Giá</th>
+                                <th class="text-center align-middle">Tình trạng</th>
+                                <th class="text-center align-middle">Ghi chú</th>
+                                <th class="text-center align-middle">Hình ảnh</th>
+                                <th class="text-center align-middle">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,11 +55,17 @@
                                     <td class="text-center">#{hall.id}</td>
                                     <td>#{hall.name}</td>
                                     <td>#{hall.description}</td>
-                                    <td class="text-right">#{hall.price}</td>
-                                    <td>#{hall.status==true? "Còn sử dụng":"Ngưng sử dụng"}</td>
+                                    <td class="text-right">
+                                        <h:outputText value = "#{hall.price}" >
+                                            <f:convertNumber type="currency" locale="vi_VN" />
+                                        </h:outputText>
+                                    </td>
+                                    <td class="text-center">#{hall.status==true? "Còn sử dụng":"Ngưng sử dụng"}</td>
                                     <td>#{hall.note}</td>
-                                    <td>#{hall.imageUrl}</td>
-                                    <td class="text-center">
+                                    <td style="width: 200px">
+                                        <h:graphicImage class="w-100" alt="không có ảnh để hiển thị" name="#{hall.imageUrl.subSequence(0, 6)}/#{hall.imageUrl.substring(6)}" library="images"/>
+                                    </td>
+                                    <td class="text-center align-middle">
                                         <div class="btn-group-vertical" role="group">
                                             <h:form style="display: contents">
                                                 <h:link styleClass="text-white btn btn-primary"  includeViewParams="true" outcome="hall?faces-redirect=true"> 
@@ -82,12 +89,12 @@
 
                 <script>
                     function deleteSuccess(id) {
-                        alert("Xoa sanh thanh cong");
-                        $('#hall-'+ id).hide();
+                        alert("Xóa sảnh thành công");
+                        $('#hall-' + id).hide();
                     }
 
                     function deleteError() {
-                        alert("Xoa sanh that bai");
+                        alert("Xóa sảnh thất bại");
                     }
                 </script>
 

@@ -6,7 +6,7 @@
     </context-param>
     <context-param>
         <param-name>com.qltc.uploadPath</param-name>
-        <param-value>F:\\GithubDesktop\\WeddingManagement\\WeddingManagement\\src\\main\\webapp\\resources\\images\\upload\\</param-value>
+        <param-value>F:\GithubDesktop\WeddingManage\WeddingManagement\src\main\webapp\resources\images\upload\</param-value>
     </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>

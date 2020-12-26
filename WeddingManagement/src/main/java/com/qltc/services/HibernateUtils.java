@@ -11,9 +11,7 @@ import com.qltc.pojo.MenuSetDetail;
 import com.qltc.pojo.OrderDetail;
 import com.qltc.pojo.Orders;
 import com.qltc.pojo.Product;
-import com.qltc.pojo.Role;
 import com.qltc.pojo.User;
-import com.qltc.pojo.UserRole;
 import java.util.Properties;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -46,9 +44,7 @@ public class HibernateUtils {
         conf.addAnnotatedClass(OrderDetail.class);
         conf.addAnnotatedClass(Orders.class);
         conf.addAnnotatedClass(Product.class);
-        conf.addAnnotatedClass(Role.class);
-        conf.addAnnotatedClass(User.class);
-        conf.addAnnotatedClass(UserRole.class); 
+        conf.addAnnotatedClass(User.class); 
         
         ServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .applySettings(conf.getProperties()).build();

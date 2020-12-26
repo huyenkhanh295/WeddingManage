@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Sign in</title>
+
+        <!-- Bootstrap CSS -->
+        <h:outputStylesheet name="bootstrap.min.css" library="css" />
+        <!-- Site CSS -->
+        <h:outputStylesheet name="signin.css" library="css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
+        <!-- ALL JS FILES -->
+        <h:outputScript name="jquery.min.js" library="js" />
+        <h:outputScript name="bootstrap.min.js" library="js" />
+    </h:head>
+    <h:body>
+        <div class="container mt-5">
+            <h:form style="margin-top: 150px;">
+                <h:commandLink action="index?faces-redirect=true">
+                    <i class="fas fa-home"></i> Về trang chủ
+                </h:commandLink>
+            </h:form>
+            <main class="form-signin">
+                <div class="text-center">
+                    <h:graphicImage styleClass="mb-4 text-center" library="images" name="logo.jpg" />
+                </div>
+                <h1 class="h3 mb-5 fw-normal text-center">Đăng ký</h1>
+                <h:form>
+                    <div class="form-group row">
+                        <h:outputLabel for="inputLastName" class="col-4 col-form-label" value="Họ"/>
+                        <div class="col-8">
+                            <h:inputText styleClass="form-control" id="inputLastName"
+                                         value="#{userBean.lastname}"
+                                         required="true"
+                                         requiredMessage="Vui lòng nhập"/>
+                        </div>
+                        <span class="col-4"></span>
+                        <h:message class="col-8" for="inputLastName" style="color:red;"/>
+                    </div>
+                    <div class="form-group row">
+                        <h:outputLabel for="inputFirstName" class="col-4 col-form-label" value="Tên"/>
+                        <div class="col-8">
+                            <h:inputText styleClass="form-control" id="inputFirstName"
+                                         value="#{userBean.firstname}"
+                                         required="true"
+                                         requiredMessage="Vui lòng nhập"/>
+                        </div>
+                        <span class="col-4"></span>
+                        <h:message class="col-8" for="inputFirstName" style="color:red;"/>
+                    </div>
+                    <div class="form-group row">
+                        <h:outputLabel for="inputEmail" class="col-4 col-form-label" value="Email"/>
+                        <div class="col-8">
+                            <h:inputText styleClass="form-control" id="inputEmail"
+                                         alt="abc@gmail.com"
+                                         value="#{userBean.email}"
+                                         required="true"
+                                         requiredMessage="Vui lòng nhập email"
+                                         validatorMessage="Vui lòng nhập email đúng định dạng! Ví dụ: abc@gmail.com">
+                                <f:validateRegex
+                                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
+                        </div>
+                        <span class="col-4"></span>
+                        <h:message class="col-8" for="inputEmail" style="color:red;"/>
+                    </div>
+                    <div class="form-group row">
+                        <h:outputLabel for="inputUsername" class="col-4 col-form-label" value="Tên đăng nhập"/>
+                        <div class="col-8">
+                            <h:inputText styleClass="form-control" id="inputUsername"
+                                         value="#{userBean.username}"
+                                         required="true"
+                                         requiredMessage="Vui lòng nhập tên đăng nhập"
+                                         validatorMessage="Tên đăng nhập phải có độ dài từ 6-30 kí tự">
+                                <f:validateLength minimum = "6" maximum = "30" />
+                            </h:inputText>
+                        </div>
+                        <span class="col-4"></span>
+                        <h:message class="col-8" for="inputUsername" style="color:red;"/>
+                    </div>
+                    <div class="form-group row">
+                        <h:outputLabel for="inputPassword" class="col-4 col-form-label" value="Mật khẩu"/>
+                        <div class="col-8">
+                            <h:inputSecret styleClass="form-control" id="inputPassword"
+                                           value="#{userBean.password}"
+                                           required="true"
+                                           requiredMessage="Vui lòng nhập mật khẩu"
+                                           validatorMessage="Mật khẩu phảp bao gồm ít nhất một kí tự gồm: số, chữ thường, hoa, một kí tự đặc biệt và có độ dài từ 8-20 kí tự">
+                                <f:validateRegex 
+                                    pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})" />
+                            </h:inputSecret>
+                        </div>
+                        <span class="col-4"></span>
+                        <h:message class="col-8" for="inputPassword" style="color:red;"/>
+                    </div>
+                    <div class="form-group row">
+                        <h:outputLabel for="inputConfirmPassword" class="col-4 col-form-label" value="Nhập lại mật khẩu"/>
+                        <div class="col-8">
+                            <h:inputSecret styleClass="form-control" id="inputConfirmPassword"
+                                           value="#{userBean.confirmPassword}"
+                                           required="true"
+                                           requiredMessage="Vui lòng nhập lại mật khẩu"/>
+                        </div>
+                        <span class="col-4"></span>
+                        <h:message class="col-8" for="inputConfirmPassword" style="color:red;"/>
+                    </div>
+                    <h:commandButton class="w-100 btn btn-lg btn-primary text-center" 
+                                     action="#{userBean.register()}"
+                                     value="Đăng ký">
+
+                    </h:commandButton>
+                    <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2020</p>
+                </h:form>
+            </main>
+        </div>
+    </h:body>
+</html>
+

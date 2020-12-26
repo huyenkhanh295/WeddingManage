@@ -289,7 +289,7 @@ button:focus{
 }
 
 .top-header .navbar .navbar-collapse ul li a{
-    padding: 19px 15px;
+	padding: 0px 12px;
     text-transform: uppercase;
     font-size: 18px;
     text-align: center;
@@ -821,4 +821,18 @@ td {
 
 td > label {
     padding-left: 1rem;
+}
+row-hall:nth-child(odd){
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.main-timeline-box .row-hall:nth-child(odd) .time-line-date-content .mbr-timeline-date{
+	background: #63c7bd;
+	color: #ffffff;
+}
+
+.main-timeline-box .row-hall:nth-child(odd) .time-line-date-content{
+    margin-left: 30px;
+    float:left;
 }
